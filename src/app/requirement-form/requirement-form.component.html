@@ -1,5 +1,5 @@
 <h1>Requirement-form works!</h1>
-debug: {{ fg.value | json }}
+debug: {{ fg.valid | json }}
 <hr />
 <div class="w-75">
   <form [formGroup]="fg">
@@ -44,7 +44,7 @@ debug: {{ fg.value | json }}
         Mobile no is invalid Thai format
       </div>
     </div>
-    <button type="submit" class="btn btn-primary ms-3" (click)="onSubmit()">
+    <button type="submit" class="btn btn-primary ms-3" [disabled]="!fg.valid"  (click)="onSubmit()">
       Submit
     </button>
     <button class="btn btn-secondary ms-2">Cancel</button>
