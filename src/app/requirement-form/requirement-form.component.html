@@ -1,0 +1,37 @@
+<h1>Requirement-form works!</h1>
+debug: {{ fg.value | json }}
+<hr />
+<div class="w-75">
+  <form [formGroup]="fg">
+    <div class="m-3">
+      <label class="form-label" for="title">Title</label>
+      <input
+        type="text"
+        class="form-control"
+        id="title"
+        formControlName="title"
+      />
+      <!-- {{ fg.controls.title.errors | json }} -->
+      <div
+        class="text-danger"
+        *ngIf="title.errors && title.touched"
+      >
+        Title is required
+      </div>
+    </div>
+
+    <div class="m-3">
+      <label class="form-label" for="contactMobileNo">Contact Mobile No</label>
+      <input
+        type="text"
+        class="form-control"
+        id="contactMobileNo"
+        formControlName="contactMobileNo"
+      />
+    </div>
+    <button type="submit" class="btn btn-primary ms-3" (click)="onSubmit()">
+      Submit
+    </button>
+    <button class="btn btn-secondary ms-2">Cancel</button>
+  </form>
+</div>
