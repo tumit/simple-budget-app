@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Requirement } from '../requirement';
 import { RequirementService } from '../requirement.service';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-requirement-list',
@@ -10,6 +11,8 @@ import { RequirementService } from '../requirement.service';
 export class RequirementListComponent implements OnInit {
 
   requirements: Requirement[] = []
+
+  isSmallTable = new FormControl(false);
 
   constructor(private requirementService: RequirementService) {
   }
