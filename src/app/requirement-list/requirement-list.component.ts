@@ -41,4 +41,9 @@ export class RequirementListComponent implements OnInit {
       () => this.requirements = this.requirements.filter(v => v.id != id));
   }
 
+  onEdit(id: number): void {
+    // http://localhost:4200/requirement-form/1010
+    this.router.navigate(['/requirement-form', id])
+  }
+
 }

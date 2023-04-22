@@ -23,6 +23,10 @@ export class RequirementService {
     // ];
   }
 
+  getRequirement(id: number): Observable<Requirement> {
+    return this.httpClient.get<Requirement>(`${this.url}/${id}`);
+  }
+
   addRequirement(newRequirement: Requirement): Observable<Requirement> {
     return this.httpClient.post<Requirement>(this.url, newRequirement);
   }
