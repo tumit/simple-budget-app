@@ -14,11 +14,14 @@ export class AuthService {
   constructor(private httpClient: HttpClient) {}
 
   setLoggedInUser(loggedInUser: LoggedInUser) {
-    sessionStorage.setItem('loggedInUser', JSON.stringify(loggedInUser))
+    // sessionStorage.setItem('loggedInUser', JSON.stringify(loggedInUser))
+    localStorage.setItem('loggedInUser', JSON.stringify(loggedInUser))
   }
 
   getLoggedInUser(): LoggedInUser | null {
-    const loggedInUser = sessionStorage.getItem('loggedInUser');
+    // const loggedInUser = sessionStorage.getItem('loggedInUser');
+    const loggedInUser = localStorage.getItem('loggedInUser');
+
     return loggedInUser ? JSON.parse(loggedInUser) as LoggedInUser : null;
   }
 

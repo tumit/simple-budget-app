@@ -16,3 +16,4 @@ export const adminGuard = (next: ActivatedRouteSnapshot) => {
     ? true
     : createUrlTreeFromSnapshot(next, ['/auth', 'login']);
 };
+
