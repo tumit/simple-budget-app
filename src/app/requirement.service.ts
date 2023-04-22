@@ -37,4 +37,8 @@ export class RequirementService {
     // return this.httpClient.delete<void>(this.url +'/'+ id)
   }
 
+  editRequirement(id: number, editRequirement: Requirement): Observable<void> {
+    return this.httpClient.put<void>(`${this.url}/${id}`, editRequirement);
+  }
+
 }
