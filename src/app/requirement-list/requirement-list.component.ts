@@ -24,8 +24,8 @@ export class RequirementListComponent implements OnInit {
     this.requirementService.getRequirements().subscribe(rs => this.requirements = rs)
   }
 
-  contactMobileNoFormat(mobileNo: string): string {
-    console.log('contactMobileNoFormat')
-    return mobileFormat(mobileNo);
-  }
+  // contactMobileNoFormat(mobileNo: string): string {
+  //   console.log('contactMobileNoFormat')
+  //   return mobileFormat(mobileNo);
+  // }
 }

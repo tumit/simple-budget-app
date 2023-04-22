@@ -6,8 +6,9 @@ import { AppComponent } from './app.component';
 import { RequirementListComponent } from './requirement-list/requirement-list.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MobileFormatPipe } from './mobile-format.pipe';
 @NgModule({
-  declarations: [AppComponent, RequirementListComponent],
+  declarations: [AppComponent, RequirementListComponent, MobileFormatPipe],
   imports: [BrowserModule, HttpClientModule, ReactiveFormsModule, AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],

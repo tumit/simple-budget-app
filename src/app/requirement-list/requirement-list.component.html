@@ -14,7 +14,7 @@
     <tr *ngFor="let r of requirements">
       <td>{{ r.id | number: '1.0-0' }}</td>
       <td>{{ r.title }}</td>
-      <td>{{ contactMobileNoFormat(r.contactMobileNo) }}</td>
+      <td>{{ r.contactMobileNo | mobileFormat }}</td>
     </tr>
   </tbody>
 </table>
