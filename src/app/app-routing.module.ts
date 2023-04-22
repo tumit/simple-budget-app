@@ -9,16 +9,25 @@ import { adminGuard } from './auth/admin.guard';
 
 const routes: Routes = [
   { path: 'requirement-list', component: RequirementListComponent },
-  { path: 'requirement-form', component: RequirementFormComponent },
-  { path: 'requirement-form/:id', component: RequirementFormComponent },
-  { path: 'requirement-approval', component: RequirementApprovalComponent, canActivate: [adminGuard] },
   {
-    path: 'auth', loadChildren: () => import('./auth/auth.module').then(m => m.AuthModule)
-  }
+    path: 'requirement-form',
+    component: RequirementFormComponent,
+    canDeactivate: [(component: RequirementFormComponent) => component.confirmLeaveForm()],
+  },
+  { path: 'requirement-form/:id', component: RequirementFormComponent },
+  {
+    path: 'requirement-approval',
+    component: RequirementApprovalComponent,
+    canActivate: [adminGuard],
+  },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
