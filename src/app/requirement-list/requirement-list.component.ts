@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Requirement } from '../requirement';
 import { RequirementService } from '../requirement.service';
 import { FormControl } from '@angular/forms';
+import { mobileFormat } from '../mobile-format';
 
 @Component({
   selector: 'app-requirement-list',
@@ -23,4 +24,8 @@ export class RequirementListComponent implements OnInit {
     this.requirementService.getRequirements().subscribe(rs => this.requirements = rs)
   }
 
+  contactMobileNoFormat(mobileNo: string): string {
+    console.log('contactMobileNoFormat')
+    return mobileFormat(mobileNo);
+  }
 }
