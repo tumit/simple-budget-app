@@ -47,6 +47,6 @@ debug: {{ fg.valid | json }}
     <button type="submit" class="btn btn-primary ms-3" [disabled]="!fg.valid"  (click)="onSubmit()">
       Submit
     </button>
-    <button class="btn btn-secondary ms-2">Cancel</button>
+    <button class="btn btn-secondary ms-2" (click)="onBack()" >Cancel</button>
   </form>
 </div>

@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { RequirementService } from '../requirement.service';
+import { Router } from '@angular/router';
 import { Requirement } from '../requirement';
+import { RequirementService } from '../requirement.service';
 import { thMobile } from '../th-mobile.validator';
 
 @Component({
@@ -19,13 +20,19 @@ export class RequirementFormComponent {
     contactMobileNo: this.contactMobileNo,
   });
 
-  constructor(private requirementService: RequirementService) {}
+  constructor(
+    private router: Router,
+    private requirementService: RequirementService) {}
 
   onSubmit(): void {
     // prepare data for API
     const newRequirement = this.fg.value as Requirement;
     this.requirementService
       .addRequirement(newRequirement)
-      .subscribe((v) => console.log('v', v));
+      .subscribe(() => this.router.navigate(['/requirement-list']));
+  }
+
+  onBack(): void {
+    this.router.navigate(['/requirement-list']);
   }
 }
