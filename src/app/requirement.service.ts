@@ -41,4 +41,9 @@ export class RequirementService {
     return this.httpClient.put<void>(`${this.url}/${id}`, editRequirement);
   }
 
+  approveRequirement(id: number): Observable<void> {
+    return this.httpClient
+      .patch<void>(`${this.url}/${id}`, { status: 'A' });
+  }
+
 }
