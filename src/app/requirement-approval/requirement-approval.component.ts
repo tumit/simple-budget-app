@@ -31,4 +31,6 @@ export class RequirementApprovalComponent {
           ))
       );
   }
+
+  // TODO: implement Reject
 }
