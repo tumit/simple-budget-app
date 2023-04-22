@@ -28,6 +28,21 @@ debug: {{ fg.value | json }}
         id="contactMobileNo"
         formControlName="contactMobileNo"
       />
+      <!-- {{ contactMobileNo.errors | json }} -->
+      <!-- required -->
+      <div
+        class="text-danger"
+        *ngIf="contactMobileNo.hasError('required') && contactMobileNo.touched"
+      >
+        Mobile no is required
+      </div>
+      <!-- thMobile -->
+      <div
+        class="text-danger"
+        *ngIf="contactMobileNo.hasError('thMobile') && contactMobileNo.touched"
+      >
+        Mobile no is invalid Thai format
+      </div>
     </div>
     <button type="submit" class="btn btn-primary ms-3" (click)="onSubmit()">
       Submit
