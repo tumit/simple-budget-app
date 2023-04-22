@@ -26,4 +26,11 @@ export class RequirementService {
   addRequirement(newRequirement: Requirement): Observable<Requirement> {
     return this.httpClient.post<Requirement>(this.url, newRequirement);
   }
+
+  deleteRequirement(id: number): Observable<void> {
+    // localhost:3000/requirements/1010
+    return this.httpClient.delete<void>(`${this.url}/${id}`)
+    // return this.httpClient.delete<void>(this.url +'/'+ id)
+  }
+
 }
