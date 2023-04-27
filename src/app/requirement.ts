@@ -1,3 +1,4 @@
+// define new interface for RequirementType
 export interface RequirementType {
   id: number;
   name: string;
@@ -9,5 +10,6 @@ export interface Requirement {
   title: string;
   contactMobileNo: string;
   status: string | null;
-  requirementType?: RequirementType;
+  requirementType?: RequirementType; // add new field
 }
+

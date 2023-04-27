@@ -24,6 +24,7 @@
       <td>{{ r.id | number: '1.0-0' }}</td>
       <td>{{ r.title }}</td>
       <td>{{ r.contactMobileNo | mobileFormat }}</td>
+      <!-- add requirementType with ?.name for requirementType is optional may by null -->
       <td>{{ r.requirementType?.name }}</td>
     </tr>
   </tbody>

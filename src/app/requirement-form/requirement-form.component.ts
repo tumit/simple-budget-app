@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Requirement } from '../requirement';
+import { Requirement, RequirementType } from '../requirement';
 import { RequirementService } from '../requirement.service';
 import { thMobile } from '../th-mobile.validator';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-requirement-form',
@@ -13,13 +14,23 @@ import { thMobile } from '../th-mobile.validator';
 export class RequirementFormComponent implements OnInit {
   title = new FormControl('', Validators.required);
   contactMobileNo = new FormControl('', [Validators.required, thMobile]);
+  requirementTypeId = new FormControl<number>(null!); // add requirementTypeId for new formGroup
 
   editId: number | null = null;
 
+  // define requirementTypeOptions to Observable of RequirementType[]
+  // for show example of how to use 'async' pipe (or use normal subscribe)
+  requirementTypeOptions?: Observable<RequirementType[]>;
+
+  // add requirementTypeId for new JSON submit
   fg = new FormGroup({
     title: this.title,
     contactMobileNo: this.contactMobileNo,
+    requirementTypeId: this.requirementTypeId
   });
+
+  // isSubmitted
+  isSubmitted = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,8 +45,18 @@ export class RequirementFormComponent implements OnInit {
     if (this.editId) {
       this.requirementService
         .getRequirement(this.editId)
-        .subscribe((v) => this.fg.patchValue(v));
+        .subscribe((v) => {
+
+          // de-constructor extract all/some fields
+          const { title, contactMobileNo } = v;
+
+          // patch title & contactMobileNo
+          this.fg.patchValue({ title, contactMobileNo, requirementTypeId: v.requirementType?.id })
+
+        });
     }
+
+    this.requirementTypeOptions = this.requirementService.getRequirementTypes();
   }
 
   onSubmit(): void {
@@ -43,13 +64,19 @@ export class RequirementFormComponent implements OnInit {
       const editRequirement = this.fg.value as Requirement;
       this.requirementService
         .editRequirement(this.editId, editRequirement)
-        .subscribe(() => this.router.navigate(['/requirement-list']));
+        .subscribe(() => {
+          this.isSubmitted = true;
+          this.router.navigate(['/requirement-list']);
+        });
     } else {
       // prepare data for API
       const newRequirement = this.fg.value as Requirement;
       this.requirementService
         .addRequirement(newRequirement)
-        .subscribe(() => this.router.navigate(['/requirement-list']));
+        .subscribe(() => {
+          this.isSubmitted = true;
+          this.router.navigate(['/requirement-list'])
+        });
     }
   }
 
@@ -59,7 +86,7 @@ export class RequirementFormComponent implements OnInit {
 
   confirmLeaveForm(): boolean {
 
-    if (this.fg.touched) {
+    if (!this.isSubmitted && this.fg.touched) {
       return confirm("Leave form ?");
     }
 

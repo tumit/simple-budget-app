@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Requirement } from './requirement';
+import { Requirement, RequirementType } from './requirement';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 export class RequirementService {
 
   readonly url = 'http://localhost:3000/requirements';
+  readonly urlRequirementType = 'http://localhost:3000/requirementTypes';
 
   constructor(private httpClient: HttpClient) {
   }
@@ -24,7 +25,7 @@ export class RequirementService {
   }
 
   getRequirement(id: number): Observable<Requirement> {
-    return this.httpClient.get<Requirement>(`${this.url}/${id}`);
+    return this.httpClient.get<Requirement>(`${this.url}/${id}?_expand=requirementType`);
   }
 
   addRequirement(newRequirement: Requirement): Observable<Requirement> {
@@ -44,6 +45,11 @@ export class RequirementService {
   approveRequirement(id: number): Observable<void> {
     return this.httpClient
       .patch<void>(`${this.url}/${id}`, { status: 'A' });
+  }
+
+  // add new api call for requirementTypes
+  getRequirementTypes(): Observable<RequirementType[]> {
+    return this.httpClient.get<RequirementType[]>(this.urlRequirementType);
   }
 
 }
