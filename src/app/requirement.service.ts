@@ -15,7 +15,7 @@ export class RequirementService {
 
   getRequirements(): Observable<Requirement[]> {
 
-    return this.httpClient.get<Requirement[]>(this.url);
+    return this.httpClient.get<Requirement[]>(`${this.url}?_expand=requirementType`);
     // return [
     //   { id: 2000, title: 'USB wire', contactMobileNo: '0891234567' },
     //   { id: 2001, title: 'USB A', contactMobileNo: '0991234567' },
