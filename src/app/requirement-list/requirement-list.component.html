@@ -1,4 +1,27 @@
-<h2>requirement-list works!</h2>
+<h2>Requirement-list works!</h2>
+
+<!-- user ngIf for define budgetState after subscribe by | async -->
+<div class="container text-center m-3" *ngIf="budgetState$ | async; let budgetState">
+  <div class="row">
+    <div class="col">
+      <div class="alert alert-primary" role="alert">
+        Total: {{ budgetState.total | number : '1.2-2' }}
+      </div>
+    </div>
+    <div class="col">
+      <div class="alert alert-secondary" role="alert">
+        Used: {{ budgetState.used | number : '1.2-2' }}
+      </div>
+    </div>
+    <div class="col">
+      <div class="alert alert-success" role="alert">
+        Balance: {{ budgetState.balance | number : '1.2-2' }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr>
 
 <div class="d-flex justify-content-end">
   <button class="btn btn-primary" (click)="onAdd()" >Add</button>
@@ -13,6 +36,7 @@
       <th>Contact Mobile No</th>
       <th>Type</th>
       <th>Tags</th>
+      <th>Budget</th>
     </tr>
   </thead>
   <tbody>
@@ -30,6 +54,7 @@
       <td>
         <span *ngFor="let tag of r.tags" class="badge text-bg-info ms-1">{{ tag }}</span>
       </td>
+      <td class="text-end" >{{ r.budget | number : '1.2-2' }}</td>
     </tr>
   </tbody>
 </table>

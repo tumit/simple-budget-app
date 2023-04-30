@@ -1,0 +1,54 @@
+{
+  "users": [
+    {
+      "email": "user1@test.com",
+      "password": "$2a$10$zDfQJKzcqM3xYz6PvAEejOpiwhKSyGgwageBp5VBE.QvtGzJuklse",
+      "role": "U",
+      "id": 1
+    },
+    {
+      "email": "user2@test.com",
+      "password": "$2a$10$AY1JS7bUQuwduWkNga.GX.7Y6bMQLAlnjxvt5bq0qBrwMJGkEwide",
+      "role": "U",
+      "id": 2
+    },
+    {
+      "email": "admin1@test.com",
+      "password": "$2a$10$cyVHfzyvMZPX7fsaB7OSC.hMfEE7Vloc6xdr4GBEFu7vD2hnfP.pS",
+      "role": "A",
+      "id": 3
+    },
+    {
+      "email": "admin2@test.com",
+      "password": "$2a$10$DH462LKD3k4lRK4eXK8Vf.3Q5EmEkBmoAx0XPlxk4JYLnXEHNkb4q",
+      "role": "A",
+      "id": 4
+    }
+  ],
+  "requirements": [
+    {
+      "id": 1001,
+      "title": "Keyboard | 50 อัน",
+      "contactMobileNo": "0894561234",
+      "status": "R"
+    },
+    {
+      "id": 1002,
+      "title": "Battery AA 200 ก้อน",
+      "contactMobileNo": "0897891234",
+      "status": "A"
+    },
+    {
+      "id": 1004,
+      "title": "กล้อง 5 ตัว",
+      "contactMobileNo": "0891231234",
+      "status": "R"
+    },
+    {
+      "id": 1006,
+      "title": "ยาหม่องน้ำ",
+      "contactMobileNo": "0891234567",
+      "status": "R"
+    }
+  ]
+}

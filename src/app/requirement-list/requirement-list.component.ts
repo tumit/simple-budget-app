@@ -4,6 +4,9 @@ import { RequirementService } from '../requirement.service';
 import { FormControl } from '@angular/forms';
 import { mobileFormat } from '../mobile-format';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { Budget } from '../budget';
+import { BudgetService } from '../budget.service';
 
 @Component({
   selector: 'app-requirement-list',
@@ -16,15 +19,30 @@ export class RequirementListComponent implements OnInit {
 
   isSmallTable = new FormControl(false);
 
+  // $ at the end of variable name is just convention to
+  // know it is Observable
+  budgetState$!: Observable<Budget>;
+
   constructor(
     private router: Router,
-    private requirementService: RequirementService) {
+    private requirementService: RequirementService,
+    private budgetService: BudgetService) {
   }
 
   ngOnInit(): void {
     // this.requirements
     //   = requirementService.getRequirements();
-    this.requirementService.getRequirements().subscribe(rs => this.requirements = rs)
+    this.requirementService.getRequirements().subscribe(rs => {
+
+      this.requirements = rs;
+
+      // use reduce function for summary total budget
+      const totalBudget = this.requirements.map(r => r.budget ? r.budget : 0).reduce((p, c) => p + c, 0);
+      this.budgetService.add(totalBudget);
+    })
+
+    this.budgetState$ = this.budgetService.getBudgetState();
+
   }
 
   // contactMobileNoFormat(mobileNo: string): string {
