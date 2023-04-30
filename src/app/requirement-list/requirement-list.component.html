@@ -12,6 +12,7 @@
       <th>Title</th>
       <th>Contact Mobile No</th>
       <th>Type</th>
+      <th>Tags</th>
     </tr>
   </thead>
   <tbody>
@@ -26,6 +27,9 @@
       <td>{{ r.contactMobileNo | mobileFormat }}</td>
       <!-- add requirementType with ?.name for requirementType is optional may by null -->
       <td>{{ r.requirementType?.name }}</td>
+      <td>
+        <span *ngFor="let tag of r.tags" class="badge text-bg-info ms-1">{{ tag }}</span>
+      </td>
     </tr>
   </tbody>
 </table>

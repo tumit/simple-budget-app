@@ -11,5 +11,6 @@ export interface Requirement {
   contactMobileNo: string;
   status: string | null;
   requirementType?: RequirementType; // add new field
+  tags: string[];
 }
 

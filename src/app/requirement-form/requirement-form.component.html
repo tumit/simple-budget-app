@@ -1,5 +1,5 @@
 <h1>Requirement-form works!</h1>
-debug: {{ fg.valid | json }}
+debug: {{ fg.getRawValue() | json }}
 <hr />
 <div class="w-75">
   <form [formGroup]="fg">
@@ -50,6 +50,26 @@ debug: {{ fg.valid | json }}
       <select class="form-select" id="requirementType" formControlName="requirementTypeId">
         <option *ngFor="let opt of requirementTypeOptions | async" [value]="opt.id">{{ opt.name }}</option>
       </select>
+    </div>
+
+    <div class="m-3">
+      <div>
+      <label class="form-label" for="requirementType">Tags</label>
+        <button type="button" class="btn btn-info position-relative m-2"  *ngFor="let tag of tags.value">
+          {{ tag }}
+          <span class="position-absolute top-0 start-100 translate-middle px-1 bg-danger border border-light rounded-circle" (click)="removeTag(tag)">
+            <i class="bi bi-x"></i>
+          </span>
+        </button>
+      </div>
+      <div class="input-group mb-3 w-25">
+        <input type="text" class="form-control" [formControl]="inputTag" (keydown.enter)="addTag()"  >
+        <button class="btn btn-outline-primary" type="button" (click)="addTag()" >Add Tag</button>
+      </div>
+
+
+
+
     </div>
 
     <button type="submit" class="btn btn-primary ms-3" [disabled]="!fg.valid"  (click)="onSubmit()">

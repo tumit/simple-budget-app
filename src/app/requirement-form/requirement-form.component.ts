@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Requirement, RequirementType } from '../requirement';
 import { RequirementService } from '../requirement.service';
@@ -15,6 +15,9 @@ export class RequirementFormComponent implements OnInit {
   title = new FormControl('', Validators.required);
   contactMobileNo = new FormControl('', [Validators.required, thMobile]);
   requirementTypeId = new FormControl<number>(null!); // add requirementTypeId for new formGroup
+  tags = new FormControl<string[]>([]);
+
+  inputTag = new FormControl();
 
   editId: number | null = null;
 
@@ -26,7 +29,8 @@ export class RequirementFormComponent implements OnInit {
   fg = new FormGroup({
     title: this.title,
     contactMobileNo: this.contactMobileNo,
-    requirementTypeId: this.requirementTypeId
+    requirementTypeId: this.requirementTypeId,
+    tags: this.tags,
   });
 
   // isSubmitted
@@ -43,17 +47,18 @@ export class RequirementFormComponent implements OnInit {
 
     // if found id then is edit action
     if (this.editId) {
-      this.requirementService
-        .getRequirement(this.editId)
-        .subscribe((v) => {
+      this.requirementService.getRequirement(this.editId).subscribe((v) => {
+        // de-constructor extract all/some fields
+        const { title, contactMobileNo, tags } = v;
 
-          // de-constructor extract all/some fields
-          const { title, contactMobileNo } = v;
-
-          // patch title & contactMobileNo
-          this.fg.patchValue({ title, contactMobileNo, requirementTypeId: v.requirementType?.id })
-
+        // patch title & contactMobileNo
+        this.fg.patchValue({
+          title,
+          contactMobileNo,
+          requirementTypeId: v.requirementType?.id,
+          tags
         });
+      });
     }
 
     this.requirementTypeOptions = this.requirementService.getRequirementTypes();
@@ -71,12 +76,10 @@ export class RequirementFormComponent implements OnInit {
     } else {
       // prepare data for API
       const newRequirement = this.fg.value as Requirement;
-      this.requirementService
-        .addRequirement(newRequirement)
-        .subscribe(() => {
-          this.isSubmitted = true;
-          this.router.navigate(['/requirement-list'])
-        });
+      this.requirementService.addRequirement(newRequirement).subscribe(() => {
+        this.isSubmitted = true;
+        this.router.navigate(['/requirement-list']);
+      });
     }
   }
 
@@ -85,12 +88,26 @@ export class RequirementFormComponent implements OnInit {
   }
 
   confirmLeaveForm(): boolean {
-
     if (!this.isSubmitted && this.fg.touched) {
-      return confirm("Leave form ?");
+      return confirm('Leave form ?');
     }
 
     return true;
   }
 
+  addTag(): void {
+    if (this.inputTag.value) {
+
+      const newTags = this.tags.value
+        ? [...this.tags.value, this.inputTag.value]
+        : [this.inputTag.value];
+
+      this.tags.setValue(newTags);
+      this.inputTag.setValue('');
+    }
+  }
+
+  removeTag(tag: string): void {
+    this.tags.setValue(this.tags.value!.filter((v) => v !== tag));
+  }
 }
