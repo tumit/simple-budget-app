@@ -16,6 +16,10 @@ export class RequirementFormComponent implements OnInit {
   contactMobileNo = new FormControl('', [Validators.required, thMobile]);
   requirementTypeId = new FormControl<number>(null!); // add requirementTypeId for new formGroup
   tags = new FormControl<string[]>([]);
+  budget = new FormControl<number>(null!, [
+    Validators.required,
+    Validators.pattern('^[0-9]*$'),
+  ]);
 
   inputTag = new FormControl();
 
@@ -31,6 +35,7 @@ export class RequirementFormComponent implements OnInit {
     contactMobileNo: this.contactMobileNo,
     requirementTypeId: this.requirementTypeId,
     tags: this.tags,
+    budget: this.budget,
   });
 
   // isSubmitted
@@ -48,16 +53,8 @@ export class RequirementFormComponent implements OnInit {
     // if found id then is edit action
     if (this.editId) {
       this.requirementService.getRequirement(this.editId).subscribe((v) => {
-        // de-constructor extract all/some fields
-        const { title, contactMobileNo, tags } = v;
-
         // patch title & contactMobileNo
-        this.fg.patchValue({
-          title,
-          contactMobileNo,
-          requirementTypeId: v.requirementType?.id,
-          tags
-        });
+        this.fg.patchValue({...v, requirementTypeId: v.requirementType?.id});
       });
     }
 
@@ -97,7 +94,6 @@ export class RequirementFormComponent implements OnInit {
 
   addTag(): void {
     if (this.inputTag.value) {
-
       const newTags = this.tags.value
         ? [...this.tags.value, this.inputTag.value]
         : [this.inputTag.value];

@@ -1,0 +1,49 @@
+<p>budget-panel works!</p>
+<!-- user ngIf for define budgetState after subscribe by | async -->
+<div class="container text-center m-3" *ngIf="budgetState$ | async; let budgetState">
+  <div class="row">
+    <div class="col">
+      <div class="alert alert-primary" role="alert">
+        Total: {{ budgetState.total | number : '1.2-2' }}
+      </div>
+    </div>
+    <div class="col">
+      <div class="alert alert-dark" role="alert">
+        Base Used: {{ budgetState.baseUsed | number : '1.2-2' }}
+      </div>
+    </div>
+    <div class="col">
+      <div class="alert alert-light" role="alert">
+        Used: {{ budgetState.used | number : '1.2-2' }}
+      </div>
+    </div>
+    <div class="col">
+      <div class="alert alert-success" role="alert">
+        Balance: {{ budgetState.balance | number : '1.2-2' }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="ms-3">
+  <label class="form-label me-3" for="title">Base used budget</label>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="baseUsedBudget" id="50pct" [value]="0" [formControl]="baseUsedBudget">
+    <label class="form-check-label" for="50pct">
+      0%
+    </label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="baseUsedBudget" id="75pct" [value]="10" [formControl]="baseUsedBudget">
+    <label class="form-check-label" for="75pct">
+      10%
+    </label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="baseUsedBudget" id="100pct" [value]="20" [formControl]="baseUsedBudget">
+    <label class="form-check-label" for="100pct">
+      20%
+    </label>
+  </div>
+</div>
+<hr>

@@ -47,6 +47,11 @@ export class RequirementService {
       .patch<void>(`${this.url}/${id}`, { status: 'A' });
   }
 
+  rejectRequirement(id: number): Observable<void> {
+    return this.httpClient
+      .patch<void>(`${this.url}/${id}`, { status: 'R' });
+  }
+
   // add new api call for requirementTypes
   getRequirementTypes(): Observable<RequirementType[]> {
     return this.httpClient.get<RequirementType[]>(this.urlRequirementType);

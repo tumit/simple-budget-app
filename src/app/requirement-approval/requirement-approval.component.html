@@ -1,4 +1,6 @@
 <h2>Requirement-approval works!</h2>
+<!-- use budget-panel for display  -->
+<wts-budget-panel></wts-budget-panel>
 
 <table class="table table-hover">
   <thead>
@@ -9,6 +11,7 @@
       <th>Title</th>
       <th>Contact Mobile No</th>
       <th>Status</th>
+      <th>Budget</th>
     </tr>
   </thead>
   <tbody>
@@ -17,11 +20,12 @@
     </tr>
     <tr *ngFor="let r of requirements">
       <td><button class="btn btn-primary" (click)="onApprove(r.id)" ><i class="bi bi-check"></i>Approve</button></td>
-      <td><button class="btn btn-secondary"><i class="bi bi-x"></i>Reject</button></td>
+      <td><button class="btn btn-secondary" (click)="onReject(r.id)"><i class="bi bi-x"></i>Reject</button></td>
       <td>{{ r.id | number: '1.0-0' }}</td>
       <td>{{ r.title }}</td>
       <td>{{ r.contactMobileNo | mobileFormat }}</td>
       <td>{{ r.status }}</td>
+      <td class="text-end" >{{ r.budget | number : '1.2-2' }}</td>
     </tr>
   </tbody>
 </table>

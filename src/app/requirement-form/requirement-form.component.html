@@ -66,10 +66,23 @@ debug: {{ fg.getRawValue() | json }}
         <input type="text" class="form-control" [formControl]="inputTag" (keydown.enter)="addTag()"  >
         <button class="btn btn-outline-primary" type="button" (click)="addTag()" >Add Tag</button>
       </div>
+    </div>
 
-
-
-
+    <div class="m-3">
+      <label class="form-label" for="title">Budget</label>
+      <input
+        type="text"
+        class="form-control"
+        id="budget"
+        formControlName="budget"
+        numberOnly
+      />
+      <div
+        class="text-danger"
+        *ngIf="budget.hasError('required') && budget.touched"
+      >
+        Budget is required
+      </div>
     </div>
 
     <button type="submit" class="btn btn-primary ms-3" [disabled]="!fg.valid"  (click)="onSubmit()">
